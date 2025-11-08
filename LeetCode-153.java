@@ -8,11 +8,10 @@ public class Solution {
         // in given array, when you point to mid, there will always be
         // one part of the array sorted and other part will be not sorted.
         // your rotation point will always lie in the part which is not sorted.
-        // store the current min value from sorted part and then pivot to the non-sorted part.
+        // store the current min value from sorted part and then pivot to the other part.
 		while(low <= high){
-            // if value at low is already less than value at high
-            // it means the entire array is already sorted
-            // and the min value is present at low
+            // when the search space is already sorted then
+			// nums[low] will always be the minimum
             if (nums[low] < nums[high]) {
                 ans = Math.min(ans, nums[low]);
                 break;
@@ -21,10 +20,10 @@ public class Solution {
 			// if left half is sorted
 			if(nums[low] <= nums[mid]){
 				ans = Math.min(ans, nums[low]);
-				low = mid + 1; // pivot to other un-sorted half
+				low = mid + 1; // pivot to other un-sorted/sorted half
 			}else{ // if right half is sorted
 				ans = Math.min(ans, nums[mid]);
-				high = mid - 1; // pivot to other un-sorted half
+				high = mid - 1; // pivot to other un-sorted/sorted half
 			}
 		}
         return ans;
@@ -56,3 +55,4 @@ public class Solution {
 //     }
 
 // }
+
