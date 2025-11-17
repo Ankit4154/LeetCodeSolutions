@@ -26,18 +26,18 @@ class Solution {
 	// against the picked number n from the range.
 	// if the split partition is exactly equals to k, 
 	// that's the answer in linear search time.
-	// For binary search, if the split partition size < k
-	// search on the left half of mid as we need more split partitions
+	// For binary search, initialize ans = sum, now if the split partition size <= k
+	// it means we have less no. of partition than required one k
+	// reducing the answer range from maximum answer(sum) in range to mid - 1 will help increasing the partition size.
+	// Thus, continue searching on the left half of mid and also store the potential answer(ans = mid)
 	// if the split partition size > k
-	// search on right half of mid as we need less split partition, 
-	// when low and high cross each other, and loop terminates
-	// the low will be pointing to the required answer; 
+	// search on right half of mid as we need less split partition to maximize the largest sum.
+	// Another answer is when low and high cross each other, and loop terminates
+	// the low will be pointing to the required answer
 	
     public int splitArray(int[] nums, int k) {
 		int max = Integer.MIN_VALUE;
 		int sum = 0;
-        if(k > nums.length)
-            return 0;
 		for(int x: nums){
 			sum += x;
 			max = Math.max(max, x);
@@ -48,17 +48,18 @@ class Solution {
 		// 	if(partitions == k)
 		// 		return i;
 		// }
-        int low = max, high = sum;
+        int low = max, high = sum, ans = max;
         while(low <= high){
 			int mid = low + (high-low)/2;
 			int partitions = canSplit(nums,mid);
 			if(partitions > k){
 				low = mid + 1;
 			}else {
+				ans = mid;
 				high = mid - 1;
 			}
 		}
-		return low;
+		return low; //ans
     }
 	
 	public int canSplit(int[] nums, int n){
@@ -74,4 +75,5 @@ class Solution {
 		}
 		return partition;
 	}
+
 }
