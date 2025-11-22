@@ -15,20 +15,16 @@
  *     }
  * }
  */
-
+// Optimized
 class Solution {
-	boolean ans = false;
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
 		if(root == null)
-			return false;
-		boolean res = isSameTree(root, subRoot);
-		if(!res){
-			isSubtree(root.left, subRoot);
-			isSubtree(root.right, subRoot);
-		}else{
-			ans = true;
-		}
-		return ans;
+            return false;
+
+        if(isSameTree(root, subRoot))
+            return true;
+
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 	
 	public boolean isSameTree(TreeNode p, TreeNode q){
@@ -41,3 +37,30 @@ class Solution {
 		return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 	}
 }
+
+// class Solution {
+// 	boolean ans = false;
+//     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+// 		if(root == null)
+// 			return false;
+// 		boolean res = isSameTree(root, subRoot);
+// 		if(!res){
+// 			isSubtree(root.left, subRoot);
+// 			isSubtree(root.right, subRoot);
+// 		}else{
+// 			ans = true;
+// 		}
+// 		return ans;
+//     }
+	
+// 	public boolean isSameTree(TreeNode p, TreeNode q){
+// 		if(p == null && q == null)
+// 			return true;
+// 		if(p == null || q == null)
+// 			return false;
+// 		if(p.val != q.val)
+// 			return false;
+// 		return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+// 	}
+// }
+
