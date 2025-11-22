@@ -15,22 +15,45 @@
  *     }
  * }
  */
+
+// Optimized
 class Solution {
-    boolean ans = true;
     public boolean isBalanced(TreeNode root) {
-        if(root == null)
-			return true;
-		maxHeight(root);
-		return ans;
+        return maxHeight(root) != -1;
     }
 	
 	public int maxHeight(TreeNode root){
 		if(root == null)
 			return 0;
 		int leftHeight = maxHeight(root.left);
+        if(leftHeight == -1)
+            return -1;
 		int rightHeight = maxHeight(root.right);
+        if(rightHeight == -1)
+            return -1;
         if(Math.abs(leftHeight-rightHeight) > 1)
-			ans = false;
+			return -1;
 		return 1 + Math.max(leftHeight, rightHeight);
 	}
 }
+
+// class Solution {
+//     boolean ans = true;
+//     public boolean isBalanced(TreeNode root) {
+//         if(root == null)
+// 			return true;
+// 		maxHeight(root);
+// 		return ans;
+//     }
+	
+// 	public int maxHeight(TreeNode root){
+// 		if(root == null)
+// 			return 0;
+// 		int leftHeight = maxHeight(root.left);
+// 		int rightHeight = maxHeight(root.right);
+//         if(Math.abs(leftHeight-rightHeight) > 1)
+// 			ans = false;
+// 		return 1 + Math.max(leftHeight, rightHeight);
+// 	}
+
+// }
