@@ -14,11 +14,13 @@ class Solution {
 			graph.get(u).add(v);
 			graph.get(v).add(u);
 		}
-		Set<Integer> visited = new HashSet<>();
+		//Set<Integer> visited = new HashSet<>();
+		boolean[] visited = new boolean[n];
 		int comp = 0;
 		// bfs on graph nodes
 		for(int i=0;i<n;i++){
-			if(!visited.contains(i)){
+			//if(!visited.contains(i)){
+			if(!visited[i]){
 				comp++;
 				bfs(i, graph, visited);
 			}
@@ -26,22 +28,19 @@ class Solution {
 		return comp;
     }
 	
-	public void bfs(int n, List<List<Integer>> graph, Set<Integer> visited){
-		if(visited.contains(n))
-			return;
-		List<Integer> l = graph.get(n);
-		if(l == null || l.isEmpty())
-			return;
+	public void bfs(int n, List<List<Integer>> graph, boolean[] visited){
 		Queue<Integer> q = new ArrayDeque<>();
 		q.add(n);
 		while(!q.isEmpty()){
 			Integer k = q.poll();
-			visited.add(k);
 			List<Integer> list = graph.get(k);
 			for(Integer x : list){
-				if(!visited.contains(x))
+				if(!visited[x]){
 					q.add(x);
+					visited[x] = true;
+				}
 			}
 		}
 	}
 }
+
