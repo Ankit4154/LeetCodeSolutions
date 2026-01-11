@@ -41,7 +41,7 @@ class Solution {
 			}
 		}
 		PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
-			(a,b) -> b[2] - a[2]
+			(a,b) -> b[2] - a[2]  // descreasing order, max first
 		);
 		maxHeap.add(new int[]{0,0,dist[0][0]});
 		boolean[][] visited = new boolean[n][m];
@@ -68,4 +68,5 @@ class Solution {
 		}
 		return 0;
     }
+
 }
