@@ -64,4 +64,57 @@ class Solution {
 
         return false;
     }
+
+}
+
+// Other solutions for creating permutations of strings
+// Will result in TLE for this problem though
+class Solution {
+    List<String> res = new ArrayList<>();
+    public boolean checkInclusion(String s1, String s2) {
+        //findPermutations1(s1, "");
+        findPermutations2(0,s1);
+        for(String s : res){
+            if(s2.contains(s))
+                return true;
+        }
+        return false;
+    }
+
+    void findPermutations1(String a, String out){
+		if(a.length() == 0){
+			res.add(out);
+			return;
+		}
+        Set<Character> set = new HashSet<>();
+		for(int i=0;i<a.length();i++){
+            if(!set.contains(a.charAt(i))){
+                String input = a.substring(0, i) + a.substring(i+1);
+			    String newOut = out + a.charAt(i);
+                findPermutations1(input, newOut);
+            }
+		}
+	}
+
+    void findPermutations2(int start, String a){
+		if(start == a.length() - 1){
+			res.add(a);
+			return;
+		}
+        Set<Character> set = new HashSet<>();
+		for(int i=start;i<a.length();i++){
+            if(!set.contains(a.charAt(i))){
+			    a = swap(start, i, a.toCharArray());
+			    findPermutations2(start+1, a);
+			    a = swap(i, start, a.toCharArray());
+            }
+		}
+	}
+
+    String swap(int a, int b, char[] ch){
+        char temp = ch[a];
+        ch[a] = ch[b];
+        ch[b] = temp;
+        return String.valueOf(ch); 
+    }
 }
