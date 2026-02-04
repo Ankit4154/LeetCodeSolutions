@@ -3,23 +3,6 @@
 class Solution {
     public boolean isTrionic(int[] nums) {
 		int n = nums.length;
-        for(int i=1;i<n;i++){
-			while(i < n && nums[i-1] < nums[i] && count == 0){
-				count = 1;
-				i++;
-			}
-			while(i < n && nums[i-1] > nums[i] && count == 1){
-				count = 2;
-				i++;
-			}
-			while(i < n && nums[i-1] < nums[i] && count == 2){
-				count = 3;
-				i++;
-			}
-		}
-		if(count == 3)class Solution {
-    public boolean isTrionic(int[] nums) {
-		int n = nums.length;
         if (n < 3) 
             return false;
 
@@ -45,9 +28,5 @@ class Solution {
         }
 
         return i == n;
-    }
-}
-			return true;
-		return false;
     }
 }
