@@ -1,5 +1,6 @@
 // 73. Set Matrix Zeroes
 // https://leetcode.com/problems/set-matrix-zeroes/
+// Time : O(n*m) Space : O(1)
 class Solution {
     public void setZeroes(int[][] matrix) {
         int n = matrix.length;
