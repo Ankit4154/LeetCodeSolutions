@@ -2,12 +2,14 @@
 // https://leetcode.com/problems/count-subarrays-with-majority-element-i
 class Solution {
     public int countMajoritySubarrays(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
+        boolean present = false;
 		for(int i=0;i<nums.length;i++){
-            // store all the frequencies of each element
-			map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
+            if(nums[i] == target){
+                present = true;
+                break;
+            }
 		}
-        if(!map.containsKey(target))
+        if(!present)
             return 0;
 		int subLength = 0;
 		int majority = 0;
