@@ -1,5 +1,73 @@
 // 2812. Find the Safest Path in a Grid
 // https://leetcode.com/problems/find-the-safest-path-in-a-grid/
+class Solution {
+    public int maximumSafenessFactor(List<List<Integer>> grid) {
+		int m = grid.size();
+		int n = grid.get(0).size();
+		// edge case check
+		if(grid.get(0).get(0) == 1 || grid.get(m-1).get(n-1) == 1)
+			return 0;
+		int[][] dist = new int[m][n];
+		for(int row[] : dist)
+			Arrays.fill(row, -1);
+		Deque<int[]> bfs = new ArrayDeque<>();
+		for(int i=0;i<m;i++){
+			for(int j=0;j<n;j++){
+				if(grid.get(i).get(j) == 1){
+					bfs.add(new int[]{i, j});
+					dist[i][j] = 0;
+				}
+			}
+		}
+		int[] dr = {-1, 1, 0, 0};
+		int[] dc = {0, 0, -1, 1};
+		while(!bfs.isEmpty()){
+			int[] p = bfs.poll();
+			int row = p[0];
+			int col = p[1];
+			for(int i=0;i<dr.length;i++){
+				int nr = row + dr[i];
+				int nc = col + dc[i];
+				if(nr >= m || nr < 0 || nc >=n || nc < 0)
+					continue;
+				if(dist[nr][nc] == -1){
+					dist[nr][nc] = dist[row][col]+1;
+					bfs.add(new int[]{nr, nc});
+				}
+			}
+		}
+		
+		PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a,b)->Integer.compare(b[2], a[2]));
+		maxHeap.add(new int[]{0,0,dist[0][0]});
+		int[][] best = new int[m][n];
+		for(int row[] : best)
+			Arrays.fill(row, -1);
+        best[0][0] = dist[0][0];
+		while(!maxHeap.isEmpty()){
+			int[] cell = maxHeap.poll();
+			int row = cell[0];
+			int col = cell[1];
+			int currentSafeness = cell[2];
+            if(currentSafeness < best[row][col])
+                continue;
+			if(row == m-1 && col == n-1)
+				return currentSafeness;
+			for(int i=0;i<dr.length;i++){
+				int nr = row + dr[i];
+				int nc = col + dc[i];
+				if(nr >= m || nr < 0 || nc >=n || nc < 0)
+					continue;
+				int safeness = Math.min(dist[nr][nc], currentSafeness);
+				if(safeness > best[nr][nc]){
+					best[nr][nc] = safeness;
+					maxHeap.add(new int[]{nr, nc, safeness});
+				}
+			}
+		}
+		return 0;
+    }
+}
+
 // multi-source BFS to populate safeness factor/distance 
 // of all cells from thief cells
 // And then apply Djkshtra on distance array for 
