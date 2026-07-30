@@ -1,5 +1,18 @@
 // 3014. Minimum Number of Pushes to Type Word I
 // https://leetcode.com/problems/minimum-number-of-pushes-to-type-word-i/
+// optim, no map needed
+class Solution {
+    public int minimumPushes(String word) {
+		int count = 1, sum = 0;
+		for(int i=0;i<word.length();i++){
+            sum += count;
+			if((i+1) % 8 == 0)
+				count++;
+		}
+		return sum;
+    }
+}
+
 // optim, removed HashMap
 class Solution {
     public int minimumPushes(String word) {
